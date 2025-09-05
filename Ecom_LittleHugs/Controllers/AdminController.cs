@@ -44,5 +44,10 @@ namespace Ecom_LittleHugs.Controllers
             }
                 
         }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("admin_session");
+            return RedirectToAction("Login");
+        }
     }
 }
