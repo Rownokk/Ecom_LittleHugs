@@ -1,6 +1,7 @@
 ﻿@{
-    Layout = "_Dashboard"; // Assuming you are using your dashboard layout
+    Layout = "_Dashboard"; // Your dashboard layout
 }
+@model Admin
 
 <div class="container py-5">
     <div class="row justify-content-center">
@@ -12,22 +13,25 @@
                 </div>
 
                 <div class="card-body p-4">
-                    <form method="post">
-                        <div class="form-floating mb-3">
-                            <input type="text" class="form-control rounded-3" id="adminName" name="admin_name" placeholder="Enter Your Name">
+                    <form method="post" asp-action="Profile" asp-controller="Admin">
+                        <input type="hidden" name="admin_id" value="@Model.admin_id" />
+
+                        <div class="form-floating mb-4">
+                            <input type="text" class="form-control rounded-3" value="@Model.admin_name" id="adminName" name="admin_name" placeholder="Enter Your Name">
                             <label for="adminName">Name</label>
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="email" class="form-control rounded-3" id="adminEmail" name="admin_email" placeholder="Enter Your Email">
+                        <div class="form-floating mb-4">
+                            <input type="email" class="form-control rounded-3" value="@Model.admin_email" id="adminEmail" name="admin_email" placeholder="Enter Your Email">
                             <label for="adminEmail">Email</label>
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <input type="password" class="form-control rounded-3" id="adminPassword" name="admin_password" placeholder="Enter Your Password">
+                        <div class="form-floating mb-4">
+                            <!-- For security, do not pre-fill password -->
+                            <input type="password" class="form-control rounded-3" id="adminPassword" name="admin_password" placeholder="Enter New Password">
                             <label for="adminPassword">Password</label>
                         </div>
-
+                        <input type="hidden" name="admin_image" value="@Model.admin_image" />
                         <button type="submit" class="btn btn-primary w-100 rounded-3 shadow-sm">
                             Update Profile
                         </button>
@@ -50,7 +54,7 @@
     }
 
     .card {
-        background: #fff8f7; /* soft creamy card background */
+        background: #fff8f7;
         border: none;
         border-radius: 20px;
         box-shadow: 0 8px 25px rgba(231, 84, 128, 0.15);
@@ -63,7 +67,7 @@
         }
 
     .card-header {
-        background: linear-gradient(135deg, #ffb3c1, #ffcce0); /* soft pink gradient */
+        background: linear-gradient(135deg, #ffb3c1, #ffcce0);
         color: #fff;
         font-weight: 600;
         letter-spacing: 2px;
@@ -113,14 +117,12 @@
         color: #d45d85;
     }
 
-    /* Floating label tweaks */
     .form-floating > .form-control:focus ~ label,
     .form-floating > .form-control:not(:placeholder-shown) ~ label {
         color: #e75480;
         transform: translateY(-1.5rem) scale(0.9);
     }
 
-    /* Optional: soft rounded container */
     .container.py-5 {
         padding-top: 6rem !important;
         padding-bottom: 6rem !important;
