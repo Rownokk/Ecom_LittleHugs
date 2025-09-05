@@ -12,7 +12,16 @@ namespace Ecom_LittleHugs.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+           string admin_session= HttpContext.Session.GetString("admin_session");
+            if (admin_session != null) 
+            {
+                return View();
+            }
+            else 
+            {
+                return RedirectToAction("Login");
+            }
+           
         }
         public IActionResult Login()
         {
