@@ -6,13 +6,15 @@ namespace Ecom_LittleHugs.Controllers
     public class AdminController : Controller
     {
         private readonly myContext _context;
+        private readonly IWebHostEnvironment _env;
 
-        public AdminController(myContext context)
+        public AdminController(myContext context, IWebHostEnvironment env)
         {
             _context = context;
+            _env = env;
         }
 
-        // GET: Admin Dashboard
+        // Dashboard
         public IActionResult Index()
         {
             string admin_session = HttpContext.Session.GetString("admin_session");
@@ -22,14 +24,14 @@ namespace Ecom_LittleHugs.Controllers
                 return RedirectToAction("Login");
         }
 
-        // GET: Admin Login
+        // GET: Login
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
 
-        // POST: Admin Login
+        // POST: Login
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Login(string adminEmail, string adminPassword)
@@ -71,7 +73,7 @@ namespace Ecom_LittleHugs.Controllers
             return View(admin);
         }
 
-        // POST: Profile Update
+        // POST: Profile Update (Name, Email, Password only)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Profile(Admin admin)
@@ -79,7 +81,6 @@ namespace Ecom_LittleHugs.Controllers
             if (!ModelState.IsValid)
                 return View(admin);
 
-            // Optionally, you can check if password is empty and not update it
             var existingAdmin = _context.tbl_admin.FirstOrDefault(a => a.admin_id == admin.admin_id);
             if (existingAdmin != null)
             {
@@ -94,6 +95,38 @@ namespace Ecom_LittleHugs.Controllers
             }
 
             TempData["success"] = "Profile updated successfully!";
+            return RedirectToAction("Profile");
+        }
+
+        // POST: Change Profile Image
+        [HttpPost]
+        public IActionResult ChangeProfileImage(IFormFile admin_image, int admin_id)
+        {
+            if (admin_image != null && admin_image.Length > 0)
+            {
+                var existingAdmin = _context.tbl_admin.FirstOrDefault(a => a.admin_id == admin_id);
+
+                if (existingAdmin != null)
+                {
+                    string uploadsFolder = Path.Combine(_env.WebRootPath, "admin_image");
+                    if (!Directory.Exists(uploadsFolder))
+                        Directory.CreateDirectory(uploadsFolder);
+
+                    string uniqueFileName = Path.GetFileName(admin_image.FileName);
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        admin_image.CopyTo(stream);
+                    }
+
+                    existingAdmin.admin_image = uniqueFileName;
+
+                    _context.tbl_admin.Update(existingAdmin);
+                    _context.SaveChanges();
+                }
+            }
+
             return RedirectToAction("Profile");
         }
     }

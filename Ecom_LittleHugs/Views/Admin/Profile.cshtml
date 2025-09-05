@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "_Dashboard"; // Your dashboard layout
 }
-@model Admin
+@model Ecom_LittleHugs.Models.Admin
 
 <div class="container py-5">
     <div class="row justify-content-center">
@@ -13,6 +13,7 @@
                 </div>
 
                 <div class="card-body p-4">
+                    <!-- Profile Update Form -->
                     <form method="post" asp-action="Profile" asp-controller="Admin">
                         <input type="hidden" name="admin_id" value="@Model.admin_id" />
 
@@ -31,10 +32,34 @@
                             <input type="password" class="form-control rounded-3" id="adminPassword" name="admin_password" placeholder="Enter New Password">
                             <label for="adminPassword">Password</label>
                         </div>
+
                         <input type="hidden" name="admin_image" value="@Model.admin_image" />
+
                         <button type="submit" class="btn btn-primary w-100 rounded-3 shadow-sm">
                             Update Profile
                         </button>
+                    </form>
+
+                    <hr />
+
+                    <!-- Profile Image Upload -->
+                    <form method="post" asp-action="ChangeProfileImage" enctype="multipart/form-data">
+                        <input type="hidden" name="admin_id" value="@Model.admin_id" />
+
+                        <div class="text-center mb-3">
+                            @if (!string.IsNullOrEmpty(Model.admin_image))
+                            {
+                                <img src="~/admin_image/@Model.admin_image" asp-append-version="true" style="width:250px;height:250px;object-fit:cover;border-radius:50%;border:3px solid #e75480" alt="Profile Image" />
+                            }
+                            else
+                            {
+                                <img src="~/admin_image/default.png" style="width:250px;height:250px;object-fit:cover;border-radius:50%;border:3px solid #e75480" alt="Default Image" />
+                            }
+                        </div>
+
+                        <input type="file" name="admin_image" class="form-control my-3" />
+
+                        <input type="submit" value="Change Profile Image" class="btn btn-primary w-100 rounded-3 shadow-sm" />
                     </form>
                 </div>
 
