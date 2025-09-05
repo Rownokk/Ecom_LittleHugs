@@ -1,102 +1,202 @@
-﻿<!DOCTYPE html>
-
-<html>
+﻿@{
+    Layout = null; // This is the layout itself
+}
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Admin Dashboard</title>
-    <link href="~/css/styles.css" rel="stylesheet" />
+    <title>Admin Dashboard - LittleHugs</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- FontAwesome -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #fff9f7;
+            color: #444;
+        }
+
+        .navbar-dark.bg-dark {
+            background: linear-gradient(90deg, #f8c8dc, #e0c3fc);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #fff !important;
+        }
+
+        /* Layout flex */
+        #layoutSidenav {
+            display: flex;
+            height: 100vh;
+        }
+
+        #layoutSidenav_nav {
+            width: 250px; /* fixed sidebar width */
+        }
+
+        #layoutSidenav_content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fafafa;
+            min-height: 100vh;
+        }
+
+        .sb-sidenav {
+            background-color: #fff9f7 !important;
+            border-right: 1px solid #f2dede;
+            height: 100%;
+            padding-top: 20px;
+        }
+
+            .sb-sidenav .nav-link {
+                color: #555;
+                font-weight: 500;
+                font-size: 15px;
+                border-radius: 10px;
+                margin: 5px 10px;
+                padding: 12px 18px;
+                transition: all 0.3s ease-in-out;
+                display: flex;
+                align-items: center;
+            }
+
+                .sb-sidenav .nav-link:hover {
+                    background: #f8c8dc;
+                    color: #fff;
+                }
+
+                .sb-sidenav .nav-link.active {
+                    background: #e75480;
+                    color: #fff;
+                }
+
+        .sb-nav-link-icon {
+            margin-right: 8px;
+            color: #e75480;
+        }
+
+        main {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .content-area {
+            background: #fff;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        footer {
+            background-color: #fff9f7 !important;
+            border-top: 1px solid #f2dede;
+            padding: 15px 0;
+        }
+
+            footer .text-muted {
+                color: #888 !important;
+                font-size: 14px;
+            }
+
+        .text-pink {
+            color: #e75480;
+        }
+
+        .text-muted {
+            color: #555 !important;
+        }
+    </style>
 </head>
 
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="">Shopping Cart</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                </div>
-            </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Profile</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="@Url.Action("Logout","admin")">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div>
-                                Home
-                            </a>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                                Profile
-                            </a>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-person"></i></div>
-                                Staff
-                            </a>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Customer
-                            </a>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
-                                Category
-                            </a>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-shopping-basket"></i></div>
-                                Products
-                            </a>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div>
-                                Cart
-                            </a>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-money-check"></i></div>
-                                Orders
-                            </a>
-                        </div>
+<body class="sb-nav-fixed">
+
+    <!-- Navbar -->
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <a class="navbar-brand ps-3" href="#">LittleHugs Admin</a>
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle"><i class="fas fa-bars"></i></button>
+
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text-white" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user fa-fw"></i>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" href="@Url.Action("Profile", "Admin")">Profile</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" href="@Url.Action("Logout", "Admin")">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Layout -->
+    <div id="layoutSidenav">
+
+        <!-- Sidebar -->
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-light" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav flex-column">
+                        <a class="nav-link active" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-home"></i></div> Home
+                        </a>
+                        <a class="nav-link" href="@Url.Action("Profile", "Admin")">
+                            <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div> Profile
+                        </a>
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-people-carry"></i></div> Staff
+                        </a>
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-baby"></i></div> Customers
+                        </a>
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div> Categories
+                        </a>
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-basket"></i></div> Products
+                        </a>
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></div> Cart
+                        </a>
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fas fa-gift"></i></div> Orders
+                        </a>
                     </div>
-                </nav>
-            </div>
-            <!-- Right Side Content Start -->
-            <div id="layoutSidenav_content">
-                <main>
-                    
-                <div>
-                    @RenderBody()
                 </div>
-                </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; 2023. Design & Developed By Syed Muhamamd Taha</div>
-                        </div>
-                    </div>
-                </footer>
-            </div>
-            <!-- Right Side Content End -->
+            </nav>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="~/js/scripts.js"></script>
-    
-   
+
+        <!-- Main Content -->
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="content-area">
+                    @RenderBody()  <!-- This is required for content pages -->
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="mt-auto">
+                <div class="container-fluid text-center">
+                    <div class="text-muted">Copyright &copy; 2025. Designed & Developed by LittleHugs Team</div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
