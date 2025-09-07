@@ -12,9 +12,15 @@
 
 <div class="row justify-content-center mt-4">
     <div class="col-md-10">
-        <div class="table-responsive shadow-lg rounded-4">
-            <table class="table table-hover align-middle text-center"
-                   style="background: #fffafc; border-radius: 20px; overflow: hidden;">
+        <!-- Add Category Button -->
+        <div class="d-flex justify-content-end mb-3">
+            <a href="@Url.Action("addCategory", "Admin")" class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">
+                ➕ Add New Category
+            </a>
+        </div>
+
+        <div class="table-responsive shadow-lg rounded-4 overflow-hidden">
+            <table class="table align-middle text-center mb-0" style="background: #fffafc;">
                 <thead style="background: linear-gradient(90deg, #ff9a9e, #fad0c4); color: #fff; font-weight:600; font-size:15px;">
                     <tr>
                         <th>🆔 Category Id</th>
@@ -25,7 +31,7 @@
                 <tbody>
                     @foreach (var cat in Model)
                     {
-                        <tr style="transition: all 0.3s ease;">
+                        <tr class="category-row">
                             <td>@cat.category_id</td>
                             <td>@cat.category_name</td>
                             <td>
@@ -47,17 +53,32 @@
 </div>
 
 <style>
-    table tbody tr:hover {
-        background: #ffeef2 !important;
-        transform: scale(1.02);
+    /* Table Rows */
+    .category-row {
+        transition: all 0.3s ease;
+        background: #fffafc;
     }
+
+        .category-row:hover {
+            background: #ffeef2;
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(255,111,97,0.2);
+        }
 
     td {
         font-size: 14px;
         color: #444;
+        padding: 12px 10px;
     }
 
-    /* Cute Buttons */
+    th {
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    /* Buttons */
     .btn-update {
         background-color: #ffd166;
         color: #333;
@@ -65,6 +86,7 @@
         font-size: 13px;
         padding: 4px 12px;
         transition: 0.3s;
+        box-shadow: 0 2px 6px rgba(255,209,100,0.3);
     }
 
         .btn-update:hover {
@@ -79,21 +101,27 @@
         font-size: 13px;
         padding: 4px 12px;
         transition: 0.3s;
+        box-shadow: 0 2px 6px rgba(239,71,111,0.3);
     }
 
         .btn-delete:hover {
             background-color: #d62839;
         }
 
+    .btn-primary {
+        background-color: #6ec1e4;
+        border: none;
+        color: white;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #4aa3c7;
+        }
+
     /* Table rounded corners */
     .table-responsive {
         border-radius: 20px;
-        overflow: hidden;
-    }
-
-    th {
-        font-weight: 600;
-        font-size: 15px;
-        letter-spacing: 1px;
     }
 </style>
