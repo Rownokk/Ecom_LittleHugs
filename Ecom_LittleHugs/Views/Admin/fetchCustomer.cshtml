@@ -1,32 +1,108 @@
 ﻿@model List<Customer>
+
 <div class="container-fluid px-4">
-        <h2 class="mt-4 text-center text-uppercase" style="letter-spacing:4px">All Customer</h2>
+    <h2 class="mt-4 text-center text-uppercase fw-bold"
+        style="letter-spacing:3px; font-family: 'Poppins', sans-serif; color:#ff6f61;">
+        All Customers
+    </h2>
+    <p class="text-center" style="color:#777; font-size:14px;">
+        A lovely list of our happy shoppers 🛍️
+    </p>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <table>
-    <thead>
-        <tr>
-                    <th>Customer Name</th>
-                    <th>Customer Phone</th>
-                    <th>Customer Country</th>
-                    <th>Customer City</th>
-                    <th>Customer Address</th>
-        </tr>
-    </thead>
-    <tbody>
-                @foreach (var cust in Model)
-                {
-                 <tr>
-                        <td>@cust.customer_name</td>
-                        <td>@cust.customer_phone</td>
-                        <td>@cust.customer_country</td>
-                        <td>@cust.customer_city</td>
-                        <td>@cust.customer_address</td>
-                 </tr>   
-                }
-            </tbody>
-</table>
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10">
+        <div class="table-responsive shadow-lg rounded-4">
+            <table class="table table-hover align-middle text-center"
+                   style="background: #fffafc; border-radius: 20px; overflow: hidden;">
+                <thead style="background: linear-gradient(90deg, #ff9a9e, #fad0c4); color: #fff;">
+                    <tr>
+                        <th>👩 Name</th>
+                        <th>📞 Phone</th>
+                        <th>🌍 Country</th>
+                        <th>🏙️ City</th>
+                        <th>🏡 Address</th>
+                        <th>⚙️ Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cust in Model)
+                    {
+                        <tr style="transition: all 0.3s ease;">
+                            <td class="fw-semibold" style="color:#444;">@cust.customer_name</td>
+                            <td style="color:#666;">@cust.customer_phone</td>
+                            <td style="color:#666;">@cust.customer_country</td>
+                            <td style="color:#666;">@cust.customer_city</td>
+                            <td style="color:#666;">@cust.customer_address</td>
+                            <td>
+                                <a href="" class="btn btn-sm btn-details me-1">
+                                   Details
+                                </a>
+                                <a href="" class="btn btn-sm btn-update me-1">
+                                    Update
+                                </a>
+                                <a href="" class="btn btn-sm btn-delete">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+<style>
+    table tbody tr:hover {
+        background: #ffeef2 !important;
+        transform: scale(1.01);
+    }
+
+    th {
+        font-weight: 600;
+        font-size: 15px;
+    }
+
+    td {
+        font-size: 14px;
+    }
+
+    /* Custom cute buttons */
+    .btn-details {
+        background-color: #6ec1e4;
+        color: white;
+        border-radius: 20px;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+        .btn-details:hover {
+            background-color: #4aa3c7;
+        }
+
+    .btn-update {
+        background-color: #ffd166;
+        color: #333;
+        border-radius: 20px;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+        .btn-update:hover {
+            background-color: #e6b800;
+            color: white;
+        }
+
+    .btn-delete {
+        background-color: #ef476f;
+        color: white;
+        border-radius: 20px;
+        font-size: 13px;
+        transition: 0.3s;
+    }
+
+        .btn-delete:hover {
+            background-color: #d62839;
+        }
+</style>
