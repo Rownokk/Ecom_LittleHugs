@@ -168,5 +168,48 @@ namespace Ecom_LittleHugs.Controllers
             _context.SaveChanges();
             return RedirectToAction("fetchCustomer");
         }
+
+        public IActionResult fetchCategory()
+        {
+            return View(_context.tbl_category.ToList());
+        }
+        public IActionResult addCategory()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult addCategory(Category cat)
+        {
+            _context.tbl_category.Add(cat);
+            _context.SaveChanges();
+            return View();
+        }
+        public IActionResult updateCategory(int id)
+        {
+           var category = _context.tbl_category.Find(id);
+            return View(category);
+        }
+        [HttpPost]
+        public IActionResult updateCategory(Category cat)
+        {
+            _context.tbl_category.Update(cat);
+            _context.SaveChanges();
+            return View();
+        }
+
+        public IActionResult deletePermissionCategory(int id)
+        {
+            return View(_context.tbl_category.FirstOrDefault(c => c.category_id == id));
+
+        }
+
+        public IActionResult deleteCategory(int id)
+        {
+            var category = _context.tbl_category.Find(id);
+            _context.tbl_category.Remove(category);
+            _context.SaveChanges();
+            return RedirectToAction("fetchCategory");
+        }
+
     }
 }

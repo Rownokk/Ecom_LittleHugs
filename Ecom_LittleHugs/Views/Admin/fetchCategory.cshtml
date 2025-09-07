@@ -1,0 +1,99 @@
+﻿@model List<Category>
+
+<div class="container-fluid px-4">
+    <h2 class="mt-4 text-center text-uppercase fw-bold"
+        style="letter-spacing:3px; font-family: 'Poppins', sans-serif; color:#ff6f61;">
+        All Categories
+    </h2>
+    <p class="text-center text-muted" style="font-size:14px;">
+        A lovely list of our cute product categories 🛍️
+    </p>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10">
+        <div class="table-responsive shadow-lg rounded-4">
+            <table class="table table-hover align-middle text-center"
+                   style="background: #fffafc; border-radius: 20px; overflow: hidden;">
+                <thead style="background: linear-gradient(90deg, #ff9a9e, #fad0c4); color: #fff; font-weight:600; font-size:15px;">
+                    <tr>
+                        <th>🆔 Category Id</th>
+                        <th>📦 Category Name</th>
+                        <th>⚙️ Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cat in Model)
+                    {
+                        <tr style="transition: all 0.3s ease;">
+                            <td>@cat.category_id</td>
+                            <td>@cat.category_name</td>
+                            <td>
+                                <a href="@Url.Action("updateCategory", "Admin", new { id = cat.category_id })"
+                                   class="btn btn-sm btn-update me-1">
+                                    ✏️ Update
+                                </a>
+                                <a href="@Url.Action("deletePermissionCategory", "Admin", new { id = cat.category_id })"
+                                   class="btn btn-sm btn-delete">
+                                    🗑️ Delete
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    table tbody tr:hover {
+        background: #ffeef2 !important;
+        transform: scale(1.02);
+    }
+
+    td {
+        font-size: 14px;
+        color: #444;
+    }
+
+    /* Cute Buttons */
+    .btn-update {
+        background-color: #ffd166;
+        color: #333;
+        border-radius: 25px;
+        font-size: 13px;
+        padding: 4px 12px;
+        transition: 0.3s;
+    }
+
+        .btn-update:hover {
+            background-color: #e6b800;
+            color: white;
+        }
+
+    .btn-delete {
+        background-color: #ef476f;
+        color: white;
+        border-radius: 25px;
+        font-size: 13px;
+        padding: 4px 12px;
+        transition: 0.3s;
+    }
+
+        .btn-delete:hover {
+            background-color: #d62839;
+        }
+
+    /* Table rounded corners */
+    .table-responsive {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    th {
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 1px;
+    }
+</style>
