@@ -18,6 +18,7 @@
 
 	<ItemGroup>
 	  <Folder Include="wwwroot\admin_image\" />
+	  <Folder Include="wwwroot\customer_images\" />
 	</ItemGroup>
 
 </Project>
