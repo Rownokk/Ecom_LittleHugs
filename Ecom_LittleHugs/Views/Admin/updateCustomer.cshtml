@@ -1,0 +1,111 @@
+﻿@model Customer
+
+<div class="container-fluid px-4">
+    <h2 class="mt-4 text-center text-uppercase fw-bold"
+        style="letter-spacing:3px; font-family: 'Poppins', sans-serif; color:#ff6f61;">
+        Update Customer
+    </h2>
+    <p class="text-center" style="color:#777; font-size:14px;">
+        Update details for our lovely shopper 🛍️
+    </p>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-lg rounded-4 border-0 p-4" style="background:#fffafc;">
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" value="@Model.customer_id" name="customer_id" />
+
+                <!-- Name -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">👩 Name</label>
+                    <input type="text" value="@Model.customer_name" name="customer_name"
+                           class="form-control rounded-pill" placeholder="Enter customer name" />
+                </div>
+
+                <!-- Phone -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">📞 Phone</label>
+                    <input type="text" value="@Model.customer_phone" name="customer_phone"
+                           class="form-control rounded-pill" placeholder="Enter phone number" />
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">📧 Email</label>
+                    <input type="email" value="@Model.customer_email" name="customer_email"
+                           class="form-control rounded-pill" placeholder="Enter email" />
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">🔒 Password</label>
+                    <input type="password" value="@Model.customer_password" name="customer_password"
+                           class="form-control rounded-pill" placeholder="Enter password" />
+                </div>
+
+                <!-- Gender -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">👤 Gender</label>
+                    <input type="text" value="@Model.customer_gender" name="customer_gender"
+                           class="form-control rounded-pill" placeholder="Enter gender" />
+                </div>
+
+                <!-- Country -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">🌍 Country</label>
+                    <input type="text" value="@Model.customer_country" name="customer_country"
+                           class="form-control rounded-pill" placeholder="Enter country" />
+                </div>
+
+                <!-- City -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">🏙️ City</label>
+                    <input type="text" value="@Model.customer_city" name="customer_city"
+                           class="form-control rounded-pill" placeholder="Enter city" />
+                </div>
+
+                <!-- Address -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">🏡 Address</label>
+                    <input type="text" value="@Model.customer_address" name="customer_address"
+                           class="form-control rounded-pill" placeholder="Enter address" />
+                </div>
+
+                <!-- Image -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">🖼️ Profile Image</label>
+                    <input type="file" name="customer_image" class="form-control rounded-pill" />
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success rounded-pill px-5 py-2 fw-bold">
+                        💾 Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control {
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+    }
+
+        .form-control:focus {
+            border-color: #ff6f61;
+            box-shadow: 0 0 5px rgba(255, 111, 97, 0.5);
+        }
+
+    .btn-success {
+        background-color: #06d6a0;
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #05a37c;
+        }
+</style>
