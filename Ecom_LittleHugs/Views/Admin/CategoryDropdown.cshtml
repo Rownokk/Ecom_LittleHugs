@@ -1,0 +1,26 @@
+﻿@model List<Category>
+
+<div class="mb-3">
+    <label for="categorySelect" class="form-label fw-semibold">📦 Choose a Category</label>
+    <select id="categorySelect" name="cat_id" class="form-select rounded-pill shadow-sm" >
+        <option disabled selected>-- Select Category --</option>
+        @foreach (var cat in Model)
+        {
+            <option value="@cat.category_id">@cat.category_name</option>
+        }
+    </select>
+</div>
+
+<style>
+    .form-select {
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+        transition: 0.3s;
+        font-size: 14px;
+    }
+
+        .form-select:focus {
+            border-color: #ff6f61;
+            box-shadow: 0 0 8px rgba(255, 111, 97, 0.3);
+        }
+</style>

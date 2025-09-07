@@ -6,16 +6,17 @@
         All Products
     </h2>
     <p class="text-center text-muted" style="font-size:14px;">
-        A lovely list of our cute product categories 🛍️
+        A lovely list of our cute products 🛍️
     </p>
 </div>
 
 <div class="row justify-content-center mt-4">
     <div class="col-md-10">
-        <!-- Add Category Button -->
+        <!-- Add Product Button -->
         <div class="d-flex justify-content-end mb-3">
-            <a href="@Url.Action("addCategory", "Admin")" class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">
-                ➕ Add New Category
+            <a href="@Url.Action("addProduct", "Admin")"
+               class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">
+                ➕ Add New Product
             </a>
         </div>
 
@@ -23,32 +24,41 @@
             <table class="table align-middle text-center mb-0" style="background: #fffafc;">
                 <thead style="background: linear-gradient(90deg, #ff9a9e, #fad0c4); color: #fff; font-weight:600; font-size:15px;">
                     <tr>
-                        
-                        <th>📦 Product Name</th>
-                        <th>📦 Product Price</th>
-                        <th>📦 Product Image</th>
+                        <th>🆔 ID</th>
+                        <th>📦 Name</th>
+                        <th>💰 Price</th>
+                        <th>🖼️ Image</th>
                         <th>⚙️ Options</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var prod in Model)
                     {
-                      <tr>
-                          <td>@prod.product_name</td>
-                          <td>@prod.product_price</td>
-                          <td>@prod.product_image</td>
+                        <tr class="product-row">
+                            <td>@prod.product_id</td>
+                            <td>@prod.product_name</td>
+                            <td>$@prod.product_price</td>
                             <td>
-                                <a href="@Url.Action("productDetails", "Admin", new { id = prod.product_id })" class="btn btn-sm btn-details me-1">
-                                    Details
+                                <img src="~/product_images/@prod.product_image"
+                                     alt="@prod.product_name"
+                                     class="img-thumbnail rounded shadow-sm"
+                                     style="width:70px; height:70px; object-fit:cover;" />
+                            </td>
+                            <td>
+                                <a href="@Url.Action("productDetails", "Admin", new { id = prod.product_id })"
+                                   class="btn btn-sm btn-details me-1">
+                                    🔍 Details
                                 </a>
-                                <a href="@Url.Action("updateProduct", "Admin", new { id = prod.product_id })" class="btn btn-sm btn-update me-1">
-                                    Update
+                                <a href="@Url.Action("updateProduct", "Admin", new { id = prod.product_id })"
+                                   class="btn btn-sm btn-update me-1">
+                                    ✏️ Update
                                 </a>
-                                <a href="@Url.Action("deletePermissionProduct", "Admin", new { id = prod.product_id })" class="btn btn-sm btn-delete">
-                                    Delete
+                                <a href="@Url.Action("deletePermissionProduct", "Admin", new { id = prod.product_id })"
+                                   class="btn btn-sm btn-delete">
+                                    🗑️ Delete
                                 </a>
                             </td>
-                      </tr>  
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -57,23 +67,16 @@
 </div>
 
 <style>
-    /* Table Rows */
-    .category-row {
+    /* Table Row Hover */
+    .product-row {
         transition: all 0.3s ease;
-        background: #fffafc;
     }
 
-        .category-row:hover {
+        .product-row:hover {
             background: #ffeef2;
-            transform: scale(1.02);
+            transform: scale(1.01);
             box-shadow: 0 4px 15px rgba(255,111,97,0.2);
         }
-
-    td {
-        font-size: 14px;
-        color: #444;
-        padding: 12px 10px;
-    }
 
     th {
         font-weight: 600;
@@ -82,7 +85,27 @@
         text-transform: uppercase;
     }
 
+    td {
+        font-size: 14px;
+        color: #444;
+        padding: 12px 10px;
+    }
+
     /* Buttons */
+    .btn-details {
+        background-color: #6ec1e4;
+        color: white;
+        border-radius: 25px;
+        font-size: 13px;
+        padding: 4px 12px;
+        transition: 0.3s;
+        box-shadow: 0 2px 6px rgba(110,193,228,0.3);
+    }
+
+        .btn-details:hover {
+            background-color: #4aa3c7;
+        }
+
     .btn-update {
         background-color: #ffd166;
         color: #333;
@@ -112,6 +135,7 @@
             background-color: #d62839;
         }
 
+    /* Add Product Button */
     .btn-primary {
         background-color: #6ec1e4;
         border: none;
@@ -123,9 +147,4 @@
         .btn-primary:hover {
             background-color: #4aa3c7;
         }
-
-    /* Table rounded corners */
-    .table-responsive {
-        border-radius: 20px;
-    }
 </style>

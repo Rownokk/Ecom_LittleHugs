@@ -214,6 +214,23 @@ namespace Ecom_LittleHugs.Controllers
         {
             return View(_context.tbl_product.ToList());
         }
-
+        public IActionResult addProduct()
+        {
+            List<Category> categories = _context.tbl_category.ToList();
+            ViewData["category"] = categories;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult addProduct(Product prod, IFormFile product_image)
+        {
+            string imageName = Path.GetFileName(product_image.FileName);
+            string imagePath = Path.Combine(_env.WebRootPath, "product_images", imageName);
+            FileStream fs = new FileStream(imagePath, FileMode.Create);
+            product_image.CopyTo(fs);
+            prod.product_image = imageName;
+            _context.tbl_product.Add(prod);
+            _context.SaveChanges();
+            return RedirectToAction("fetchProduct");
+        }
     }
 }

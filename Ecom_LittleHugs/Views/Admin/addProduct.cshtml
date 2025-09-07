@@ -1,0 +1,86 @@
+﻿<div class="container-fluid px-4">
+    <h2 class="mt-4 text-center text-uppercase fw-bold"
+        style="letter-spacing:3px; font-family: 'Poppins', sans-serif; color:#ff6f61;">
+        Add New Product
+    </h2>
+    <p class="text-center text-muted" style="font-size:14px;">
+        Add a lovely new product to our cute collection 🛍️
+    </p>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-lg rounded-4 border-0 p-4" style="background:#fffafc;">
+            <form method="post" enctype="multipart/form-data">
+
+                <!-- Product Name -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">🛒 Product Name</label>
+                    <input type="text" name="product_name"
+                           class="form-control rounded-pill"
+                           placeholder="Enter Product Name" required />
+                </div>
+
+                <!-- Product Price -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">💰 Product Price</label>
+                    <input type="number" step="0.01" name="product_price"
+                           class="form-control rounded-pill"
+                           placeholder="Enter Product Price" required />
+                </div>
+
+                <!-- Product Description -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">📝 Description</label>
+                    <textarea name="product_description"
+                              class="form-control rounded-4"
+                              rows="3" placeholder="Enter Product Description"></textarea>
+                </div>
+
+                <!-- Product Image -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">📷 Upload Image</label>
+                    <input type="file" name="product_image"
+                           class="form-control rounded-pill" required />
+                </div>
+
+                <!-- Category Dropdown (Partial View) -->
+                <div class="mb-3">
+                    @Html.Partial("CategoryDropdown", ViewData["category"])
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center mt-4">
+                    <input type="submit" value="➕ Add Product"
+                           class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control {
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+        transition: 0.3s;
+        font-size: 14px;
+    }
+
+        .form-control:focus {
+            border-color: #ff6f61;
+            box-shadow: 0 0 8px rgba(255, 111, 97, 0.3);
+        }
+
+    .btn-primary {
+        background-color: #6ec1e4;
+        border: none;
+        color: white;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #4aa3c7;
+        }
+</style>
