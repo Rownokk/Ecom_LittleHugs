@@ -35,13 +35,13 @@
                             <td style="color:#666;">@cust.customer_city</td>
                             <td style="color:#666;">@cust.customer_address</td>
                             <td>
-                                <a href="" class="btn btn-sm btn-details me-1">
+                                <a href="@Url.Action("customerDetails", "Admin", new { id = @cust.customer_id })" class="btn btn-sm btn-details me-1">
                                    Details
                                 </a>
-                                <a href="" class="btn btn-sm btn-update me-1">
+                                <a href="@Url.Action("updateCustomer", "Admin", new { id = @cust.customer_id })" class="btn btn-sm btn-update me-1">
                                     Update
                                 </a>
-                                <a href="" class="btn btn-sm btn-delete">
+                                <a href="@Url.Action("deleteCustomer", "Admin", new { id = @cust.customer_id })" class="btn btn-sm btn-delete">
                                     Delete
                                 </a>
                             </td>
