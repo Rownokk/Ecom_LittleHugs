@@ -134,5 +134,11 @@ namespace Ecom_LittleHugs.Controllers
         { 
          return View(_context.tbl_customer.ToList());
         }
+
+        public IActionResult customerDetails(int id)
+        {
+            
+            return View(_context.tbl_customer.FirstOrDefault(c => c.customer_id == id));
+        }
     }
 }
