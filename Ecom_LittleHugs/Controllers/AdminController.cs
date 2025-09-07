@@ -210,6 +210,10 @@ namespace Ecom_LittleHugs.Controllers
             _context.SaveChanges();
             return RedirectToAction("fetchCategory");
         }
+        public IActionResult fetchProduct()
+        {
+            return View(_context.tbl_product.ToList());
+        }
 
     }
 }
