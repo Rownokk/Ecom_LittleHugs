@@ -2,29 +2,33 @@
 
 <div class="container-fluid px-4">
     <h2 class="mt-4 text-center text-uppercase fw-bold"
-        style="letter-spacing:3px; font-family: 'Poppins', sans-serif; color:#ff6f61;">
-        Customer Details
+        style="letter-spacing:3px; font-family: 'Poppins', sans-serif; color:#d62839;">
+        ⚠️ Are you sure you want to delete this customer?
     </h2>
-    <p class="text-center" style="color:#777; font-size:14px;">
-        Meet one of our lovely shoppers 🛍️
+    <p class="text-center text-muted" style="font-size:15px;">
+        This action <strong>cannot</strong> be undone.
     </p>
 </div>
 
 <div class="row justify-content-center mt-4">
     <div class="col-md-6">
-        <div class="card shadow-lg rounded-4 border-0" style="background:#fffafc;">
+        <div class="card shadow-lg rounded-4 border-0" style="background:#fffdfd;">
             <div class="card-body text-center p-4">
+
                 <!-- Customer Image -->
                 <img src="~/customer_images/@Model.customer_image"
                      asp-append-version="true"
-                     class="img-fluid rounded-circle shadow mb-3"
-                     style="width:180px; height:180px; object-fit:cover;" />
+                     class="img-fluid rounded-circle shadow mb-3 border border-3"
+                     style="width:180px; height:180px; object-fit:cover; border-color:#d62839;" />
 
-                <h4 class="fw-bold" style="color:#ff6f61;">@Model.customer_name</h4>
-                <p class="text-muted mb-4">🛒 Happy Shopper</p>
+                <!-- Customer Name -->
+                <h4 class="fw-bold mb-1" style="color:#ff6f61;">
+                    @Model.customer_name
+                </h4>
+                <p class="text-muted mb-4">🛒 Loyal Shopper</p>
 
                 <!-- Customer Details -->
-                <ul class="list-group list-group-flush text-start">
+                <ul class="list-group list-group-flush text-start px-3">
                     <li class="list-group-item"><strong>🆔 ID:</strong> @Model.customer_id</li>
                     <li class="list-group-item"><strong>📞 Phone:</strong> @Model.customer_phone</li>
                     <li class="list-group-item"><strong>📧 Email:</strong> @Model.customer_email</li>
@@ -33,15 +37,21 @@
                     <li class="list-group-item"><strong>🌍 Country:</strong> @Model.customer_country</li>
                     <li class="list-group-item"><strong>🏙️ City:</strong> @Model.customer_city</li>
                     <li class="list-group-item"><strong>🏡 Address:</strong> @Model.customer_address</li>
-                    
                 </ul>
 
                 <!-- Action Buttons -->
-                <div class="mt-4">
-                    <a href="@Url.Action("updateCustomer", "Admin", new { id = Model.customer_id })"
-                       class="btn btn-warning rounded-pill px-4 me-2">✏️ Update</a>
-                    <a href="@Url.Action("deletePermission", "Admin", new { id = Model.customer_id })"
-                       class="btn btn-danger rounded-pill px-4">🗑️ Delete</a>
+                <div class="mt-5 d-flex justify-content-center gap-3">
+                    <!-- Cancel -->
+                    <a href="@Url.Action("fetchCustomer", "Admin")"
+                       class="btn btn-secondary rounded-pill px-4 fw-semibold">
+                        ❌ Cancel
+                    </a>
+
+                    <!-- Delete -->
+                    <a href="@Url.Action("deleteCustomer", "Admin", new { id = Model.customer_id })"
+                       class="btn btn-danger rounded-pill px-4 fw-semibold">
+                        🗑️ Delete
+                    </a>
                 </div>
             </div>
         </div>
@@ -52,7 +62,7 @@
     .list-group-item {
         background: transparent;
         border: none;
-        padding: 10px 0;
+        padding: 8px 0;
         font-size: 15px;
         color: #444;
     }
@@ -61,15 +71,14 @@
             color: #ff6f61;
         }
 
-    .btn-warning {
-        background-color: #ffd166;
+    .btn-secondary {
+        background-color: #adb5bd;
         border: none;
-        color: #333;
+        color: white;
     }
 
-        .btn-warning:hover {
-            background-color: #e6b800;
-            color: white;
+        .btn-secondary:hover {
+            background-color: #6c757d;
         }
 
     .btn-danger {

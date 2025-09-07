@@ -156,7 +156,11 @@ namespace Ecom_LittleHugs.Controllers
             _context.SaveChanges();
             return RedirectToAction("fetchCustomer");
         }
+        public IActionResult deletePermission(int id)
+        {
+            return View(_context.tbl_customer.FirstOrDefault(c => c.customer_id == id));
 
+        }
         public IActionResult deleteCustomer(int id) 
         {
             var customer = _context.tbl_customer.Find(id);
