@@ -1,0 +1,66 @@
+﻿@model Category
+
+<div class="container-fluid px-4">
+    <h2 class="mt-4 text-center text-uppercase fw-bold"
+        style="letter-spacing:3px; font-family: 'Poppins', sans-serif; color:#ff6f61;">
+        Update / Edit Category
+    </h2>
+    <p class="text-center text-muted" style="font-size:14px;">
+        ✨ Make changes to keep our product collection fresh & lovely 🛍️
+    </p>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-lg rounded-4 border-0 p-4" style="background:#fffafc;">
+            <form method="post">
+                <!-- Hidden Category ID -->
+                <input type="hidden" name="category_id" value="@Model.category_id" />
+
+                <!-- Category Name -->
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">📦 Category Name</label>
+                    <input type="text" name="category_name"
+                           class="form-control rounded-pill"
+                           value="@Model.category_name"
+                           placeholder="Enter updated category name" required />
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center mt-3">
+                    <button type="submit"
+                            class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm">
+                        ✏️ Update Category
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form-control {
+        border: 1px solid #ddd;
+        padding: 10px 15px;
+        transition: 0.3s;
+    }
+
+        .form-control:focus {
+            border-color: #ff6f61;
+            box-shadow: 0 0 8px rgba(255, 111, 97, 0.3);
+        }
+
+    .btn-primary {
+        background-color: #6ec1e4;
+        border: none;
+        color: white;
+        font-weight: 500;
+        transition: 0.3s;
+    }
+
+        .btn-primary:hover {
+            background-color: #4aa3c7;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+</style>

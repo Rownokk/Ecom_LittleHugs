@@ -182,7 +182,7 @@ namespace Ecom_LittleHugs.Controllers
         {
             _context.tbl_category.Add(cat);
             _context.SaveChanges();
-            return View();
+            return RedirectToAction("fetchCategory");
         }
         public IActionResult updateCategory(int id)
         {
@@ -194,7 +194,7 @@ namespace Ecom_LittleHugs.Controllers
         {
             _context.tbl_category.Update(cat);
             _context.SaveChanges();
-            return View();
+            return RedirectToAction("fetchCategory");
         }
 
         public IActionResult deletePermissionCategory(int id)
