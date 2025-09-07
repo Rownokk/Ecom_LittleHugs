@@ -129,5 +129,10 @@ namespace Ecom_LittleHugs.Controllers
 
             return RedirectToAction("Profile");
         }
+
+        public IActionResult fetchCustomer()
+        { 
+         return View(_context.tbl_customer.ToList());
+        }
     }
 }
