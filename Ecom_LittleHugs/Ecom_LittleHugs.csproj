@@ -20,7 +20,6 @@
 	<ItemGroup>
 	  <Folder Include="wwwroot\admin_image\" />
 	  <Folder Include="wwwroot\customer_images\" />
-	  <Folder Include="wwwroot\product_images\" />
 	</ItemGroup>
 
 </Project>

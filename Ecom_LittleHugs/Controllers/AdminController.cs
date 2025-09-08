@@ -1,5 +1,6 @@
 ﻿using Ecom_LittleHugs.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecom_LittleHugs.Controllers
 {
@@ -231,6 +232,11 @@ namespace Ecom_LittleHugs.Controllers
             _context.tbl_product.Add(prod);
             _context.SaveChanges();
             return RedirectToAction("fetchProduct");
+        }
+        public IActionResult productDetails(int id)
+        {
+
+            return View(_context.tbl_product.Include(c=>c.Category).FirstOrDefault(c=>c.product_id==id));
         }
     }
 }
