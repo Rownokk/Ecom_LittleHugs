@@ -2,14 +2,23 @@
 
 <div class="mb-3">
     <label for="categorySelect" class="form-label fw-semibold">📦 Choose a Category</label>
-    <select id="categorySelect" name="cat_id" class="form-select rounded-pill shadow-sm" >
-        <option disabled selected>-- Select Category --</option>
+    <select id="categorySelect" name="cat_id" class="form-select rounded-pill shadow-sm">
+        <option disabled>-- Select Category --</option>
         @foreach (var cat in Model)
         {
-            <option value="@cat.category_id">@cat.category_name</option>
+            if (cat.category_id == ViewBag.selectedCategoryId)
+            {
+                <option value="@cat.category_id" selected="selected">@cat.category_name</option>
+            }
+            else
+            {
+                <option value="@cat.category_id">@cat.category_name</option>
+            }
         }
     </select>
 </div>
+
+
 
 <style>
     .form-select {

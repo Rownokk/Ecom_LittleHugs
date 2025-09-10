@@ -217,6 +217,7 @@ namespace Ecom_LittleHugs.Controllers
         }
         public IActionResult addProduct()
         {
+          
             List<Category> categories = _context.tbl_category.ToList();
             ViewData["category"] = categories;
             return View();
@@ -250,5 +251,55 @@ namespace Ecom_LittleHugs.Controllers
             _context.SaveChanges();
             return RedirectToAction("fetchProduct");
         }
+        public IActionResult updateProduct(int id)
+        {
+            var product = _context.tbl_product.Find(id);
+            List<Category> categories = _context.tbl_category.ToList();
+            ViewData["category"] = categories;
+            ViewBag.selectedCategoryId = product.cat_id; // This is important
+            return View(product);
+        }
+
+        [HttpPost]
+        public IActionResult updateProduct(Product product)
+        {
+          
+            _context.tbl_product.Update(product);
+            _context.SaveChanges();
+            return RedirectToAction("fetchProduct");
+        }
+        [HttpPost]
+        public IActionResult ChangeProductImage(IFormFile product_image, int product_id)
+        {
+            if (product_image != null && product_image.Length > 0)
+            {
+                var existingProduct = _context.tbl_product.FirstOrDefault(p => p.product_id == product_id);
+
+                if (existingProduct != null)
+                {
+                    string uploadsFolder = Path.Combine(_env.WebRootPath, "product_images");
+                    if (!Directory.Exists(uploadsFolder))
+                        Directory.CreateDirectory(uploadsFolder);
+
+                    string uniqueFileName = Path.GetFileName(product_image.FileName);
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        product_image.CopyTo(stream);
+                    }
+
+                    existingProduct.product_image = uniqueFileName;
+
+                    _context.tbl_product.Update(existingProduct);
+                    _context.SaveChanges();
+                }
+            }
+
+            return RedirectToAction("fetchProduct");
+        }
+
+
+
     }
 }
