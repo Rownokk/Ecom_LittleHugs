@@ -238,5 +238,17 @@ namespace Ecom_LittleHugs.Controllers
 
             return View(_context.tbl_product.Include(c=>c.Category).FirstOrDefault(c=>c.product_id==id));
         }
+        public IActionResult deletePermissionProduct(int id)
+        {
+            return View(_context.tbl_product.FirstOrDefault(p => p.product_id == id));
+
+        }
+        public IActionResult deleteProduct(int id)
+        {
+            var product = _context.tbl_product.Find(id);
+            _context.tbl_product.Remove(product);
+            _context.SaveChanges();
+            return RedirectToAction("fetchProduct");
+        }
     }
 }
