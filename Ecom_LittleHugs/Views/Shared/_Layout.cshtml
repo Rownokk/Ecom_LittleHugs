@@ -71,7 +71,15 @@
                                                 </div><!-- End .header-menu -->
                                             </div>
                                         </li>
-                                        <li><a href="@Url.Action("customerLogin","customer")" >Sign in / Sign up</a></li>
+                                        @if(string.IsNullOrEmpty(ViewBag.checkSession))
+                                        {
+                                            <li><a href="@Url.Action("customerLogin", "customer")">Sign in / Sign up</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="@Url.Action("customerLogOUT", "customer")">logout</a></li>
+                                        }
+
                                     </ul>
                                 </li>
                             </ul><!-- End .top-menu -->

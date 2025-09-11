@@ -17,6 +17,7 @@ namespace Ecom_LittleHugs.Controllers
 
             List<Category> category = _context.tbl_category.ToList();
             ViewData["category"] = category;
+            ViewBag.checkSession = HttpContext.Session.GetString("customerSession");
             return View();
         }
 
@@ -59,6 +60,14 @@ namespace Ecom_LittleHugs.Controllers
             return RedirectToAction("customerLogin");
 
         }
+
+        public IActionResult customerLogout()
+        {
+            HttpContext.Session.Remove("customerSession");
+            return RedirectToAction("index");
+
+        }
+
 
     }
 }
