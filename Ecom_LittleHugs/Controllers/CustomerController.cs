@@ -68,6 +68,53 @@ namespace Ecom_LittleHugs.Controllers
 
         }
 
+        public IActionResult customerProfile()
+        {
+            var sessionId = HttpContext.Session.GetString("customerSession");
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                return RedirectToAction("customerLogin");
+            }
 
+            int customerId = int.Parse(sessionId);
+            var customer = _context.tbl_customer.FirstOrDefault(c => c.customer_id == customerId);
+
+            if (customer == null)
+            {
+                return RedirectToAction("customerLogin");
+            }
+
+            ViewData["category"] = _context.tbl_category.ToList();
+            return View(customer);
+        }
+
+        // POST: Update Customer Profile
+        [HttpPost]
+        public IActionResult customerProfile(Customer updatedCustomer)
+        {
+            var sessionId = HttpContext.Session.GetString("customerSession");
+            if (string.IsNullOrEmpty(sessionId))
+            {
+                return RedirectToAction("customerLogin");
+            }
+
+            int customerId = int.Parse(sessionId);
+            var customer = _context.tbl_customer.FirstOrDefault(c => c.customer_id == customerId);
+
+            if (customer != null)
+            {
+                customer.customer_name = updatedCustomer.customer_name;
+                customer.customer_phone = updatedCustomer.customer_phone;
+                customer.customer_email = updatedCustomer.customer_email;
+                customer.customer_password = updatedCustomer.customer_password;
+                customer.customer_country = updatedCustomer.customer_country;
+                customer.customer_city = updatedCustomer.customer_city;
+                customer.customer_address = updatedCustomer.customer_address;
+
+                _context.SaveChanges();
+            }
+
+            return RedirectToAction("customerProfile");
+        }
     }
 }
