@@ -8,15 +8,49 @@
     <div class="row mt-3">
         <div class="col-md-2"></div>
         <div class="col-md-8">
+            <form method="post" enctype="multipart/form-data" asp-action="ChangeCustomerImage">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="customer_id" value="@Model.customer_id" />
+
+                <img src="~/customer_images/@Model.customer_image"
+                     asp-append-version="true"
+                     style="height:200px;width:200px;" />
+
+
+                <input type="file" name="customer_image" />
+                <input type="submit" class="btn btn-primary" value="Change Image" />
+                <!-- ✅ Fixed hidden input -->
+                <input type="hidden" name="customer_id" value="@Model.customer_id" />
+
+                <!-- ✅ Your original inputs (unchanged) -->
+                <input type="hidden" name="customer_name" class="form-control mb-3" placeholder="Enter Your Name" value="@Model.customer_name" />
+                <input type="hidden" name="customer_phone" class="form-control mb-3" placeholder="Enter Your Phone" value="@Model.customer_phone" />
+                <input type="hidden" name="customer_email" class="form-control mb-3" placeholder="Enter Your Email" value="@Model.customer_email" />
+                <input type="hidden" name="customer_password" class="form-control mb-3" placeholder="Enter Your Password" value="@Model.customer_password" />
+                <input type="hidden" name="customer_gender" class="form-control mb-3" value="@Model.customer_gender" />
+                <input type="hidden" name="customer_country" class="form-control mb-3" placeholder="Enter Your Country" value="@Model.customer_country" />
+                <input type="hidden" name="customer_city" class="form-control mb-3" placeholder="Enter Your City" value="@Model.customer_city" />
+                <input type="hidden" name="customer_address" class="form-control mb-3" placeholder="Enter Your Address" value="@Model.customer_address" />
+            </form>
             <h4 class="text-center mb-4">Customer Profile</h4>
-            <form method="post">
+
+            <form method="post" asp-action="updateCustomerProfile">
+                @Html.AntiForgeryToken()
+
+                <!-- ✅ Fixed hidden input -->
+                <input type="hidden" name="customer_id" value="@Model.customer_id" />
+
+                <!-- ✅ Your original inputs (unchanged) -->
                 <input type="text" name="customer_name" class="form-control mb-3" placeholder="Enter Your Name" value="@Model.customer_name" />
                 <input type="text" name="customer_phone" class="form-control mb-3" placeholder="Enter Your Phone" value="@Model.customer_phone" />
                 <input type="email" name="customer_email" class="form-control mb-3" placeholder="Enter Your Email" value="@Model.customer_email" />
                 <input type="password" name="customer_password" class="form-control mb-3" placeholder="Enter Your Password" value="@Model.customer_password" />
+                <input type="password" name="customer_gender" class="form-control mb-3" value="@Model.customer_gender" />
                 <input type="text" name="customer_country" class="form-control mb-3" placeholder="Enter Your Country" value="@Model.customer_country" />
                 <input type="text" name="customer_city" class="form-control mb-3" placeholder="Enter Your City" value="@Model.customer_city" />
                 <input type="text" name="customer_address" class="form-control mb-3" placeholder="Enter Your Address" value="@Model.customer_address" />
+                <input type="hidden" name="customer_image" class="form-control mb-3"  value="@Model.customer_image" />
+
                 <button type="submit" class="btn btn-primary w-100">Update Profile</button>
             </form>
         </div>

@@ -1,4 +1,9 @@
-﻿using Ecom_LittleHugs.Models;
+﻿using System;
+using System.IO;
+using System.Linq;
+using Ecom_LittleHugs.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -65,9 +70,10 @@ namespace Ecom_LittleHugs.Controllers
             if (string.IsNullOrEmpty(adminId))
                 return RedirectToAction("Login");
 
-            var admin = _context.tbl_admin
-                        .FirstOrDefault(a => a.admin_id == int.Parse(adminId));
+            if (!int.TryParse(adminId, out var id))
+                return RedirectToAction("Login");
 
+            var admin = _context.tbl_admin.FirstOrDefault(a => a.admin_id == id);
             if (admin == null)
                 return RedirectToAction("Login");
 
@@ -101,72 +107,91 @@ namespace Ecom_LittleHugs.Controllers
 
         // POST: Change Profile Image
         [HttpPost]
-        public IActionResult ChangeProfileImage(IFormFile admin_image, int admin_id)
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangeProfileImage(int admin_id, IFormFile? admin_image)
         {
-            if (admin_image != null && admin_image.Length > 0)
+            if (admin_image == null || admin_image.Length == 0)
+                return RedirectToAction("Profile", new { id = admin_id });
+
+            var existingAdmin = _context.tbl_admin.FirstOrDefault(a => a.admin_id == admin_id);
+            if (existingAdmin == null) return NotFound();
+
+            var uploadsFolder = Path.Combine(_env.WebRootPath, "admin_image");
+            Directory.CreateDirectory(uploadsFolder);
+
+            var ext = Path.GetExtension(admin_image.FileName);
+            var uniqueFileName = $"{Guid.NewGuid()}{ext}";
+            var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
-                var existingAdmin = _context.tbl_admin.FirstOrDefault(a => a.admin_id == admin_id);
-
-                if (existingAdmin != null)
-                {
-                    string uploadsFolder = Path.Combine(_env.WebRootPath, "admin_image");
-                    if (!Directory.Exists(uploadsFolder))
-                        Directory.CreateDirectory(uploadsFolder);
-
-                    string uniqueFileName = Path.GetFileName(admin_image.FileName);
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        admin_image.CopyTo(stream);
-                    }
-
-                    existingAdmin.admin_image = uniqueFileName;
-
-                    _context.tbl_admin.Update(existingAdmin);
-                    _context.SaveChanges();
-                }
+                admin_image.CopyTo(stream);
             }
 
-            return RedirectToAction("Profile");
+            // Delete old file if exists
+            if (!string.IsNullOrWhiteSpace(existingAdmin.admin_image))
+            {
+                var oldPath = Path.Combine(uploadsFolder, existingAdmin.admin_image);
+                if (System.IO.File.Exists(oldPath))
+                    System.IO.File.Delete(oldPath);
+            }
+
+            existingAdmin.admin_image = uniqueFileName;
+            _context.tbl_admin.Update(existingAdmin);
+            _context.SaveChanges();
+
+            return RedirectToAction("Profile", new { id = admin_id });
         }
 
         public IActionResult fetchCustomer()
-        { 
-         return View(_context.tbl_customer.ToList());
+        {
+            return View(_context.tbl_customer.ToList());
         }
 
         public IActionResult customerDetails(int id)
         {
-            
             return View(_context.tbl_customer.FirstOrDefault(c => c.customer_id == id));
         }
+
         public IActionResult updateCustomer(int id)
         {
             return View(_context.tbl_customer.Find(id));
         }
+
         [HttpPost]
-        public IActionResult updateCustomer(Customer customer, IFormFile customer_image)
+        public IActionResult updateCustomer(Customer customer, IFormFile? customer_image)
         {
-            string ImagePath = Path.Combine(_env.WebRootPath, "customer_images",
-                customer_image.FileName);
-            FileStream fs = new FileStream(ImagePath, FileMode.Create);
-            customer_image.CopyTo(fs);
-            customer.customer_image = customer_image.FileName;
+            if (customer_image != null && customer_image.Length > 0)
+            {
+                var folder = Path.Combine(_env.WebRootPath, "customer_images");
+                Directory.CreateDirectory(folder);
+
+                var imagePath = Path.Combine(folder, customer_image.FileName);
+                using (var fs = new FileStream(imagePath, FileMode.Create))
+                {
+                    customer_image.CopyTo(fs);
+                }
+                customer.customer_image = customer_image.FileName;
+            }
+
             _context.tbl_customer.Update(customer);
             _context.SaveChanges();
             return RedirectToAction("fetchCustomer");
         }
+
         public IActionResult deletePermission(int id)
         {
             return View(_context.tbl_customer.FirstOrDefault(c => c.customer_id == id));
-
         }
-        public IActionResult deleteCustomer(int id) 
+
+        public IActionResult deleteCustomer(int id)
         {
             var customer = _context.tbl_customer.Find(id);
-            _context.tbl_customer.Remove(customer);
-            _context.SaveChanges();
+            if (customer != null)
+            {
+                _context.tbl_customer.Remove(customer);
+                _context.SaveChanges();
+            }
             return RedirectToAction("fetchCustomer");
         }
 
@@ -174,10 +199,12 @@ namespace Ecom_LittleHugs.Controllers
         {
             return View(_context.tbl_category.ToList());
         }
+
         public IActionResult addCategory()
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult addCategory(Category cat)
         {
@@ -185,11 +212,13 @@ namespace Ecom_LittleHugs.Controllers
             _context.SaveChanges();
             return RedirectToAction("fetchCategory");
         }
+
         public IActionResult updateCategory(int id)
         {
-           var category = _context.tbl_category.Find(id);
+            var category = _context.tbl_category.Find(id);
             return View(category);
         }
+
         [HttpPost]
         public IActionResult updateCategory(Category cat)
         {
@@ -201,59 +230,76 @@ namespace Ecom_LittleHugs.Controllers
         public IActionResult deletePermissionCategory(int id)
         {
             return View(_context.tbl_category.FirstOrDefault(c => c.category_id == id));
-
         }
 
         public IActionResult deleteCategory(int id)
         {
             var category = _context.tbl_category.Find(id);
-            _context.tbl_category.Remove(category);
-            _context.SaveChanges();
+            if (category != null)
+            {
+                _context.tbl_category.Remove(category);
+                _context.SaveChanges();
+            }
             return RedirectToAction("fetchCategory");
         }
+
         public IActionResult fetchProduct()
         {
             return View(_context.tbl_product.ToList());
         }
+
         public IActionResult addProduct()
         {
-          
             List<Category> categories = _context.tbl_category.ToList();
             ViewData["category"] = categories;
             return View();
         }
+
         [HttpPost]
-        public IActionResult addProduct(Product prod, IFormFile product_image)
+        public IActionResult addProduct(Product prod, IFormFile? product_image)
         {
-            string imageName = Path.GetFileName(product_image.FileName);
-            string imagePath = Path.Combine(_env.WebRootPath, "product_images", imageName);
-            FileStream fs = new FileStream(imagePath, FileMode.Create);
-            product_image.CopyTo(fs);
-            prod.product_image = imageName;
+            if (product_image != null && product_image.Length > 0)
+            {
+                string imageName = Path.GetFileName(product_image.FileName);
+                string imagePath = Path.Combine(_env.WebRootPath, "product_images", imageName);
+                using (var fs = new FileStream(imagePath, FileMode.Create))
+                {
+                    product_image.CopyTo(fs);
+                }
+                prod.product_image = imageName;
+            }
+
             _context.tbl_product.Add(prod);
             _context.SaveChanges();
             return RedirectToAction("fetchProduct");
         }
+
         public IActionResult productDetails(int id)
         {
-
-            return View(_context.tbl_product.Include(c=>c.Category).FirstOrDefault(c=>c.product_id==id));
+            return View(_context.tbl_product.Include(c => c.Category).FirstOrDefault(c => c.product_id == id));
         }
+
         public IActionResult deletePermissionProduct(int id)
         {
             return View(_context.tbl_product.FirstOrDefault(p => p.product_id == id));
-
         }
+
         public IActionResult deleteProduct(int id)
         {
             var product = _context.tbl_product.Find(id);
-            _context.tbl_product.Remove(product);
-            _context.SaveChanges();
+            if (product != null)
+            {
+                _context.tbl_product.Remove(product);
+                _context.SaveChanges();
+            }
             return RedirectToAction("fetchProduct");
         }
+
         public IActionResult updateProduct(int id)
         {
             var product = _context.tbl_product.Find(id);
+            if (product == null) return NotFound();
+
             List<Category> categories = _context.tbl_category.ToList();
             ViewData["category"] = categories;
             ViewBag.selectedCategoryId = product.cat_id; // This is important
@@ -263,13 +309,13 @@ namespace Ecom_LittleHugs.Controllers
         [HttpPost]
         public IActionResult updateProduct(Product product)
         {
-          
             _context.tbl_product.Update(product);
             _context.SaveChanges();
             return RedirectToAction("fetchProduct");
         }
+
         [HttpPost]
-        public IActionResult ChangeProductImage(IFormFile product_image, int product_id)
+        public IActionResult ChangeProductImage(IFormFile? product_image, int product_id)
         {
             if (product_image != null && product_image.Length > 0)
             {
@@ -298,8 +344,5 @@ namespace Ecom_LittleHugs.Controllers
 
             return RedirectToAction("fetchProduct");
         }
-
-
-
     }
 }
