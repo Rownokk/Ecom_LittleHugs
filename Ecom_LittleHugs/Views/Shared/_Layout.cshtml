@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -71,7 +72,7 @@
                                                 </div><!-- End .header-menu -->
                                             </div>
                                         </li>
-                                        @if(string.IsNullOrEmpty(ViewBag.checkSession))
+                                        @if (string.IsNullOrEmpty(ViewBag.checkSession))
                                         {
                                             <li><a href="@Url.Action("customerLogin", "customer")">Sign in / Sign up</a></li>
                                         }
@@ -117,7 +118,7 @@
                         <div class="header-right">
                             <div class="header-dropdown-link">
                                 <div class="account">
-                                    <a href="@Url.Action("customerProfile","customer")" title="My account">
+                                    <a href="@Url.Action("customerProfile", "customer")" title="My account">
                                         <div class="icon">
                                             <i class="icon-user"></i>
                                         </div>
@@ -573,6 +574,10 @@
                                             <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
                                         </ul>
                                     </li>
+                                    <!-- Contact Us Button Added Here -->
+                                    <li>
+                                        <a href="@Url.Action("feedback", "customer")" class="contact-button">Contact Us</a>
+                                    </li>
                                 </ul><!-- End .menu -->
                             </nav><!-- End .main-nav -->
                         </div><!-- End .header-center -->
@@ -667,8 +672,6 @@
             </footer><!-- End .footer -->
         </div><!-- End .wrap-container -->
     </div><!-- End .page-wrapper -->
-  
-
     <!-- Plugins JS File -->
     <script src="~/website/js/jquery.min.js"></script>
     <script src="~/website/js/bootstrap.bundle.min.js"></script>

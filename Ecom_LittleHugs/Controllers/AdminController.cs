@@ -344,5 +344,53 @@ namespace Ecom_LittleHugs.Controllers
 
             return RedirectToAction("fetchProduct");
         }
+        public IActionResult fetchFeedback()
+        {
+            var feedbackList = _context.tbl_feedback.ToList();
+            return View(feedbackList);
+        }
+
+        // GET: Admin/DeleteFeedbackConfirmation/5
+        public IActionResult DeleteFeedbackConfirmation(int id)
+        {
+            var feedback = _context.tbl_feedback.FirstOrDefault(f => f.feedback_id == id);
+            if (feedback == null)
+            {
+                return NotFound();
+            }
+            return View(feedback);
+        }
+
+        // POST: Admin/DeleteFeedbackConfirmed
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult DeleteFeedbackConfirmed(int feedback_id)
+        {
+            var feedback = _context.tbl_feedback.FirstOrDefault(f => f.feedback_id == feedback_id);
+            if (feedback != null)
+            {
+                _context.tbl_feedback.Remove(feedback);
+                _context.SaveChanges();
+                TempData["SuccessMessage"] = "Feedback deleted successfully!";
+            }
+            return RedirectToAction("fetchFeedback");
+        }
+
+        // KEEP YOUR EXISTING deletePermissionFeedback AND deleteFeedback METHODS:
+        public IActionResult deletePermissionFeedback(int id)
+        {
+            return View(_context.tbl_feedback.FirstOrDefault(f => f.feedback_id == id));
+        }
+
+        public IActionResult deleteFeedback(int id)
+        {
+            var feedback = _context.tbl_feedback.Find(id);
+            if (feedback != null)
+            {
+                _context.tbl_feedback.Remove(feedback);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("fetchFeedback");
+        }
     }
 }

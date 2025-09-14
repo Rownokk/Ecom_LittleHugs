@@ -1,0 +1,98 @@
+﻿@model List<Feedback>
+
+<div class="container-fluid px-4">
+    <h2 class="mt-4 text-center text-uppercase fw-bold"
+        style="letter-spacing:3px; font-family: 'Poppins', sans-serif; color:#ff6f61;">
+        All Feedback
+    </h2>
+    <p class="text-center text-muted" style="font-size:14px;">
+        Customer feedback and messages 💌
+    </p>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10">
+        <div class="table-responsive shadow-lg rounded-4 overflow-hidden">
+            <table class="table align-middle text-center mb-0" style="background: #fffafc;">
+                <thead style="background: linear-gradient(90deg, #ff9a9e, #fad0c4); color: #fff; font-weight:600; font-size:15px;">
+                    <tr>
+                        <th>Username</th>
+                        <th>User Message</th>
+                        <th>⚙️ Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        @foreach (var feedback in Model)
+                        {
+                            <tr class="product-row">
+                                <td>@feedback.user_name</td>
+                                <td>@feedback.user_message</td>
+                                <td>
+                                    <a href="@Url.Action("deletePermissionFeedback", "Admin", new { id = feedback.feedback_id })"
+                                       class="btn btn-delete">
+                                        🗑️ Delete
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="3" class="text-center py-4 text-muted">
+                                <i class="fas fa-inbox" style="font-size: 2rem; opacity: 0.5;"></i>
+                                <p class="mt-2">No feedback available yet</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    .product-row {
+        transition: all 0.3s ease;
+    }
+
+        .product-row:hover {
+            background: #ffeef2;
+            transform: scale(1.01);
+            box-shadow: 0 4px 15px rgba(255,111,97,0.2);
+        }
+
+    th {
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    td {
+        font-size: 14px;
+        color: #444;
+        padding: 12px 10px;
+    }
+
+    .btn-delete {
+        background-color: #ef476f;
+        color: white;
+        border-radius: 25px;
+        font-size: 13px;
+        padding: 4px 12px;
+        transition: 0.3s;
+        box-shadow: 0 2px 6px rgba(239,71,111,0.3);
+        text-decoration: none;
+        display: inline-block;
+        margin: 2px;
+    }
+
+        .btn-delete:hover {
+            background-color: #d62839;
+            color: white;
+            text-decoration: none;
+        }
+</style>

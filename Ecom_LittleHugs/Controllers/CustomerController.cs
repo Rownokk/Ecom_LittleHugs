@@ -159,6 +159,20 @@ namespace Ecom_LittleHugs.Controllers
 
             return RedirectToAction("CustomerProfile", new { id = customer_id });
         }
-
+        public IActionResult feedback()
+        {
+            List<Category> category = _context.tbl_category.ToList();
+            ViewData["category"] = category;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Feedback(Feedback feedback)
+        {
+            _context.tbl_feedback.Add(feedback);
+            _context.SaveChanges();
+            return RedirectToAction("Feedback");
+        }
     }
+
 }
+
