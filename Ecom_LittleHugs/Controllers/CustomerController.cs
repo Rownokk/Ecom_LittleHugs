@@ -24,6 +24,8 @@ namespace Ecom_LittleHugs.Controllers
         {
             List<Category> category = _context.tbl_category.ToList();
             ViewData["category"] = category;
+            List<Product> products = _context.tbl_product.ToList();
+            ViewData["product"] = products;
             ViewBag.checkSession = HttpContext.Session.GetString("customerSession");
             return View();
         }

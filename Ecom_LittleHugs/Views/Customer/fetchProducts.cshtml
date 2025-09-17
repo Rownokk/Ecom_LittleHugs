@@ -1,0 +1,35 @@
+﻿@model List<Product>
+@foreach (var pro in Model)
+{
+    <div class="product">
+        <figure class="product-media">
+            <span class="product-label label-top">Top</span>
+            <a href="product.html">
+                <img src="@("~/product_images/" + pro.product_image)" alt="Product image" class="product-image">
+            </a>
+
+            <div class="product-action-vertical">
+                <a href="#" class="btn-product-icon btn-wishlist" title="Add to Wishlist"><span>add to wishlist</span></a>
+            </div><!-- End .product-action-vertical -->
+
+            <div class="product-action">
+                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+            </div><!-- End .product-action -->
+        </figure><!-- End .product-media -->
+
+        <div class="product-body">
+            <div class="product-cat">
+                <a href="#">Shooter</a>
+            </div><!-- End .product-cat -->
+            <h3 class="product-title"><a href="product.html">
+               @pro.product_name
+                </a><
+                    /h3><!-- End .product-title -->
+            <div class="product-price">
+              @pro.product_price
+            </div><!-- End .product-price -->
+        </div><!-- End .product-body -->
+    </div>
+
+    <!-- End .product -->
+}
