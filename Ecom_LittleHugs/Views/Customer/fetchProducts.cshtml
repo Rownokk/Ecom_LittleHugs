@@ -1,20 +1,20 @@
 ﻿@model List<Product>
 <style>
     .product {
-        width: 220px; /* fixed width for all boxes */
-        height: 400px; /* fixed height for all boxes */
+        width: 220px;
+        height: 400px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: stretch;
-        border: 1px solid #ddd; /* optional */
+        border: 1px solid #ddd;
         padding: 10px;
-        margin: 10px; /* space between boxes */
+        margin: 10px;
         box-sizing: border-box;
     }
 
     .product-media {
-        height: 200px; /* fixed height for image area */
+        height: 200px;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -25,59 +25,48 @@
     .product-image {
         width: 100%;
         height: 100%;
-        object-fit: cover; /* fills evenly, crops if needed */
+        object-fit: cover;
     }
 
     .product-body {
-        flex: 1; /* stretch remaining space */
+        flex: 1;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
     }
-
 </style>
+
 @foreach (var pro in Model)
 {
-
     <div class="product">
         <figure class="product-media">
             <span class="product-label label-top">Top</span>
-            <a href="@Url.Action("productDetails","Customer")">
+            <a href="@Url.Action("productDetails", "Customer")">
                 <img src="@("~/product_images/" + pro.product_image)" alt="Product image" class="product-image"
-                     asp-append-version="true" height="200px">
+                     asp-append-version="true" height="200px" />
             </a>
 
             <div class="product-action-vertical">
                 <a href="#" class="btn-product-icon btn-wishlist" title="Add to Wishlist"><span>add to wishlist</span></a>
-            </div><!-- End .product-action-vertical -->
+            </div>
 
             <div class="product-action">
                 <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-            </div><!-- End .product-action -->
-        </figure><!-- End .product-media -->
+            </div>
+        </figure>
 
         <div class="product-body">
             <div class="product-cat">
                 <a href="#">Shooter</a>
-            </div><!-- End .product-cat -->
-<<<<<<< HEAD
+            </div>
             <h3 class="product-title">
-                <a href="product.html">
+                <a href="@Url.Action("productDetails", "Customer")">
                     @pro.product_name
                 </a>
-            </h3><!-- End .product-title -->
-=======
-            <a href="@Url.Action("productDetails", "Customer")">
-                <h3 class="product-title">
-                    <a>
-               @pro.product_name
-                </a><
-                    /h3><!-- End .product-title -->
->>>>>>> 666400f (click photo ->our product page)
+            </h3>
             <div class="product-price">
                 @pro.product_price
-            </div><!-- End .product-price -->
-        </div><!-- End .product-body -->
+            </div>
+        </div>
     </div>
-
-    <!-- End .product -->
 }
