@@ -174,6 +174,46 @@ namespace Ecom_LittleHugs.Controllers
             _context.SaveChanges();
             return RedirectToAction("Feedback");
         }
+
+        // Fixed fetchAllProducts action
+        public IActionResult fetchAllProducts()
+        {
+            List<Category> category = _context.tbl_category.ToList();
+            ViewData["category"] = category;
+            List<Product> products = _context.tbl_product.ToList();
+            ViewData["product"] = products;
+            // Pass products to the view
+            return View();
+        }
+        public IActionResult productDetails()
+            
+        {
+            List<Category> category = _context.tbl_category.ToList();
+            ViewData["category"] = category;
+
+
+
+            return View();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public IActionResult AddToCart(int prod_id, Cart cart)
         {
             string isLogin = HttpContext.Session.GetString("customerSession");
@@ -191,17 +231,7 @@ namespace Ecom_LittleHugs.Controllers
             else
             {
                 return RedirectToAction("customerLogin");
-                cart.prod_id = prod_id;
-                cart.cust_id = int.Parse(isLogin);
-                cart.product_quantity = 1;
-                cart.cart_status = 0;
-                _context.tbl_cart.Add(cart);
-                _context.SaveChanges();
-                TempData["message"] = "Product Successfully Added in Cart";
-                return RedirectToAction("fetchAllProducts");
             }
-            
         }
     }
 }
-

@@ -41,7 +41,7 @@
     <div class="product">
         <figure class="product-media">
             <span class="product-label label-top">Top</span>
-            <a href="product.html">
+            <a href="@Url.Action("productDetails","Customer")">
                 <img src="@("~/product_images/" + pro.product_image)" alt="Product image" class="product-image"
                      asp-append-version="true" height="200px">
             </a>
@@ -59,11 +59,20 @@
             <div class="product-cat">
                 <a href="#">Shooter</a>
             </div><!-- End .product-cat -->
+<<<<<<< HEAD
             <h3 class="product-title">
                 <a href="product.html">
                     @pro.product_name
                 </a>
             </h3><!-- End .product-title -->
+=======
+            <a href="@Url.Action("productDetails", "Customer")">
+                <h3 class="product-title">
+                    <a>
+               @pro.product_name
+                </a><
+                    /h3><!-- End .product-title -->
+>>>>>>> 666400f (click photo ->our product page)
             <div class="product-price">
                 @pro.product_price
             </div><!-- End .product-price -->
