@@ -54,6 +54,279 @@
         .megamenu, .sf-arrows ul {
             display: none !important;
         }
+
+        /* Back to Top Button Styles */
+        .back-to-top {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ff9cbd;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(233, 30, 99, 0.3);
+            z-index: 999;
+            transition: all 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+            .back-to-top.show {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+
+            .back-to-top:hover {
+                background: #e91e63;
+                transform: translateY(-5px);
+            }
+
+            .back-to-top i {
+                font-size: 20px;
+            }
+
+        /* Chat Bot Styles */
+        .chat-bot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .chat-bot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff9cbd, #e91e63);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(233, 30, 99, 0.4);
+            transition: all 0.3s ease;
+        }
+
+            .chat-bot-button:hover {
+                transform: scale(1.1);
+            }
+
+            .chat-bot-button i {
+                font-size: 24px;
+            }
+
+        .chat-bot-window {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 320px;
+            height: 400px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+            .chat-bot-window.active {
+                display: flex;
+            }
+
+        .chat-header {
+            background: linear-gradient(135deg, #ff9cbd, #e91e63);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+            .chat-header h3 {
+                margin: 0;
+                font-size: 18px;
+                font-weight: 600;
+            }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            max-width: 100%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .bot-message .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-message .message-content {
+            background: #e91e63;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-options {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .option-button {
+            display: block;
+            width: 100%;
+            padding: 10px 15px;
+            background: #f8f8f8;
+            border: 1px solid #eee;
+            border-radius: 20px;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 14px;
+            color: #555;
+        }
+
+            .option-button:hover {
+                background: #ffebf1;
+                border-color: #ff9cbd;
+            }
+
+        .quick-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .quick-option {
+            padding: 8px 12px;
+            background: #f0f8ff;
+            border: 1px solid #d1e8ff;
+            border-radius: 16px;
+            font-size: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+            .quick-option:hover {
+                background: #d1e8ff;
+            }
+
+        .chat-input-area {
+            display: none;
+            padding: 10px 15px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+
+        .chat-input {
+            display: flex;
+        }
+
+            .chat-input input {
+                flex: 1;
+                padding: 10px 15px;
+                border: 1px solid #ddd;
+                border-radius: 20px;
+                outline: none;
+                font-size: 14px;
+            }
+
+            .chat-input button {
+                margin-left: 10px;
+                background: #e91e63;
+                color: white;
+                border: none;
+                border-radius: 20px;
+                padding: 10px 15px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-top: 5px;
+            color: #888;
+            font-size: 12px;
+        }
+
+        .typing-dots {
+            display: flex;
+            margin-left: 5px;
+        }
+
+        .typing-dot {
+            width: 4px;
+            height: 4px;
+            background-color: #888;
+            border-radius: 50%;
+            margin: 0 2px;
+            animation: typingAnimation 1.4s infinite ease-in-out;
+        }
+
+            .typing-dot:nth-child(1) {
+                animation-delay: 0s;
+            }
+
+            .typing-dot:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            .typing-dot:nth-child(3) {
+                animation-delay: 0.4s;
+            }
+
+       
     </style>
 </head>
 <body>
@@ -76,7 +349,7 @@
                                                 <a href="#">TK</a>
                                                 <div class="header-menu">
                                                     <ul>
-                                                        
+
                                                         <li><a href="#">TK</a></li>
                                                     </ul>
                                                 </div><!-- End .header-menu -->
@@ -88,7 +361,7 @@
                                                 <div class="header-menu">
                                                     <ul>
                                                         <li><a href="#">English</a></li>
-                                                        
+
                                                     </ul>
                                                 </div><!-- End .header-menu -->
                                             </div>
@@ -97,13 +370,13 @@
                                         {
                                             <li>
                                                 <a href="@Url.Action("customerLogin", "customer")">Sign in / Sign up</a>
-                                                </li>
+                                            </li>
                                         }
                                         else
                                         {
                                             <li>
                                                 <a href="@Url.Action("customerLogOUT", "customer")">logout</a>
-                                                </li>
+                                            </li>
                                         }
                                     </ul>
                                 </li>
@@ -245,11 +518,11 @@
                                     <li class="active">
                                         <a href="@Url.Action("Index", "customer")">Home</a>
                                     </li>
-                                    
+
                                     <li>
                                         <a href="@Url.Action("fetchAllProducts", "customer")">Product</a>
                                     </li>
-                                    
+
                                     <li>
                                         <a href="@Url.Action("feedback", "customer")">Contact Us</a>
                                     </li>
@@ -433,6 +706,50 @@
 
 
         </div><!-- End .wrap-container -->
+        <!-- Back to Top Button -->
+        <div class="back-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+
+        <!-- Chat Bot Container -->
+        <div class="chat-bot-container">
+            <div class="chat-bot-button">
+                <i class="icon-comments"></i>
+            </div>
+            <div class="chat-bot-window">
+                <div class="chat-header">
+                    <h3>LittleHugs Assistant</h3>
+                    <button class="close-chat">&times;</button>
+                </div>
+                <div class="chat-messages">
+                    <div class="message bot-message">
+                        <div class="message-content">
+                            Hi there! 👋 I'm here to help you with any questions about LittleHugs. How can I assist you today?
+                        </div>
+                    </div>
+                </div>
+                <div class="chat-options">
+                    <p style="margin: 0 0 10px 0; font-size: 13px; color: #888;">Choose a question:</p>
+                    <button class="option-button" data-question="What are your shipping options?">🚚 Shipping Options</button>
+                    <button class="option-button" data-question="How can I track my order?">📦 Track My Order</button>
+                    <button class="option-button" data-question="What is your return policy?">🔄 Return Policy</button>
+                    <button class="option-button" data-question="Do you have baby care products?">👶 Baby Care Products</button>
+
+                    <div class="quick-options">
+                        <div class="quick-option" data-question="Store hours?">🕒 Hours</div>
+                        <div class="quick-option" data-question="Payment methods?">💳 Payments</div>
+                        <div class="quick-option" data-question="Gift cards?">🎁 Gift Cards</div>
+                        <div class="quick-option" data-question="New arrivals?">🆕 New Items</div>
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <div class="chat-input">
+                        <input type="text" placeholder="Type your message...">
+                        <button>Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div><!-- End .page-wrapper -->
     <!-- Plugins JS File -->
     <script src="~/website/js/jquery.min.js"></script>
@@ -448,6 +765,155 @@
     <!-- Main JS File -->
     <script src="~/website/js/main.js"></script>
     <script src="~/website/js/demos/demo-19.js"></script>
+
+    <script>
+        // Back to Top functionality
+        $(document).ready(function() {
+            // Back to Top button
+            var backToTop = $('.back-to-top');
+
+            // Toggle visibility of back to top button
+            $(window).scroll(function() {
+                if ($(this).scrollTop() > 300) {
+                    backToTop.addClass('show');
+                } else {
+                    backToTop.removeClass('show');
+                }
+            });
+
+            // Smooth scroll to top
+            backToTop.click(function(e) {
+                e.preventDefault();
+                $('html, body').animate({scrollTop: 0}, 800);
+            });
+
+            // Chat bot functionality
+            var chatButton = $('.chat-bot-button');
+            var chatWindow = $('.chat-bot-window');
+            var closeChat = $('.close-chat');
+            var chatMessages = $('.chat-messages');
+            var optionButtons = $('.option-button');
+            var quickOptions = $('.quick-option');
+            var chatInputArea = $('.chat-input-area');
+            var chatInput = $('.chat-input input');
+            var chatSend = $('.chat-input button');
+
+            // Toggle chat window
+            chatButton.click(function() {
+                chatWindow.toggleClass('active');
+            });
+
+            // Close chat window
+            closeChat.click(function() {
+                chatWindow.removeClass('active');
+            });
+
+            // Predefined answers for questions
+            var answers = {
+                "What are your shipping options?": "We offer standard shipping (3-5 business days) for $4.99, express shipping (2-3 business days) for $9.99, and free shipping for orders over $50! 🚚",
+                "How can I track my order?": "Once your order ships, we'll send a confirmation email with a tracking number. You can also track your order from your account dashboard. 📦",
+                "What is your return policy?": "We offer a 30-day return policy for unused items in original packaging. Returns are free for store credit or exchange! 🔄",
+                "Do you have baby care products?": "Yes! We have a wide range of baby care products including organic skincare, diapers, baby shampoos, and more. Check our 'Baby Care' category! 👶",
+                "Store hours?": "We're open Monday to Saturday from 9AM to 8PM, and Sundays from 10AM to 6PM. 🕒",
+                "Payment methods?": "We accept all major credit cards, PayPal, Apple Pay, and Google Pay. 💳",
+                "Gift cards?": "Yes! We offer digital and physical gift cards in various denominations. Perfect for baby showers! 🎁",
+                "New arrivals?": "New products arrive every week! Check our 'New Arrivals' section to see the latest additions to our collection. 🆕"
+            };
+
+            // Function to add message to chat
+            function addMessage(message, isUser) {
+                var messageClass = isUser ? 'user-message' : 'bot-message';
+                var messageHTML = '<div class="message ' + messageClass + '">' +
+                    '<div class="message-content">' + message + '</div>' +
+                    '</div>';
+
+                chatMessages.append(messageHTML);
+                chatMessages.scrollTop(chatMessages[0].scrollHeight);
+            }
+
+            // Function to show typing indicator
+            function showTypingIndicator() {
+                var typingHTML = '<div class="typing-indicator" id="typing-indicator">' +
+                    'LittleHugs Assistant is typing' +
+                    '<div class="typing-dots">' +
+                    '<div class="typing-dot"></div>' +
+                    '<div class="typing-dot"></div>' +
+                    '<div class="typing-dot"></div>' +
+                    '</div>' +
+                    '</div>';
+
+                chatMessages.append(typingHTML);
+                chatMessages.scrollTop(chatMessages[0].scrollHeight);
+
+                return $('#typing-indicator');
+            }
+
+            // Handle option button clicks
+            function handleQuestion(question) {
+                // Add user question to chat
+                addMessage(question, true);
+
+                // Remove options after question is asked
+                $('.chat-options').slideUp(300);
+
+                // Show typing indicator
+                var typingIndicator = showTypingIndicator();
+
+                // Get answer after a short delay
+                setTimeout(function() {
+                    var answer = answers[question] || "I'm sorry, I don't have information about that yet. Please contact our customer service for assistance.";
+
+                    // Remove typing indicator
+                    typingIndicator.remove();
+
+                    // Add bot response
+                    addMessage(answer, false);
+
+                    // Show follow-up options after a delay
+                    setTimeout(function() {
+                        $('.chat-options').slideDown(300);
+                    }, 1000);
+                }, 1500);
+            }
+
+            // Set up event handlers
+            optionButtons.click(function() {
+                var question = $(this).data('question');
+                handleQuestion(question);
+            });
+
+            quickOptions.click(function() {
+                var question = $(this).data('question');
+                handleQuestion(question);
+            });
+
+            // Handle send button click
+            chatSend.click(function() {
+                var message = chatInput.val().trim();
+                if (message !== '') {
+                    addMessage(message, true);
+                    chatInput.val('');
+
+                    // Show typing indicator
+                    var typingIndicator = showTypingIndicator();
+
+                    // Bot response after delay
+                    setTimeout(function() {
+                        typingIndicator.remove();
+                        addMessage("I'm still learning to respond to custom messages. Please select one of the options above for immediate help. 💖", false);
+                    }, 1500);
+                }
+            });
+
+            // Allow pressing Enter to send message
+            chatInput.keypress(function(e) {
+                if (e.which === 13) {
+                    chatSend.click();
+                    return false;
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
