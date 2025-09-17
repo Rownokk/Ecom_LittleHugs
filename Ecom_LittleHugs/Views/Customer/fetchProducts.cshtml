@@ -41,7 +41,7 @@
     <div class="product">
         <figure class="product-media">
             <span class="product-label label-top">Top</span>
-            <a href="@Url.Action("productDetails", "Customer")">
+            <a href="@Url.Action("productDetails", "Customer",new{id=pro.product_id})">
                 <img src="@("~/product_images/" + pro.product_image)" alt="Product image" class="product-image"
                      asp-append-version="true" height="200px" />
             </a>
@@ -60,7 +60,7 @@
                 <a href="#">Shooter</a>
             </div>
             <h3 class="product-title">
-                <a href="@Url.Action("productDetails", "Customer")">
+                <a href="@Url.Action("productDetails", "Customer", new { id = pro.product_id })">
                     @pro.product_name
                 </a>
             </h3>
