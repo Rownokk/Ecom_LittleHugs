@@ -854,7 +854,7 @@
                 addMessage(question, true);
 
                 // Remove options after question is asked
-                $('.chat-options').slideUp(300);
+                $('.chat-options').slideUp(1000);
 
                 // Show typing indicator
                 var typingIndicator = showTypingIndicator();
@@ -871,7 +871,7 @@
 
                     // Show follow-up options after a delay
                     setTimeout(function() {
-                        $('.chat-options').slideDown(300);
+                        $('.chat-options').slideDown(2500);
                     }, 1000);
                 }, 1500);
             }
@@ -907,7 +907,7 @@
 
             // Allow pressing Enter to send message
             chatInput.keypress(function(e) {
-                if (e.which === 13) {
+                if (e.which === 250) {
                     chatSend.click();
                     return false;
                 }
