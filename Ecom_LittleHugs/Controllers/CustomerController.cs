@@ -68,7 +68,7 @@ namespace Ecom_LittleHugs.Controllers
         public IActionResult customerLogout()
         {
             HttpContext.Session.Remove("customerSession");
-            return RedirectToAction("index");
+            return RedirectToAction("customerLogin");
         }
 
         public IActionResult customerProfile()
