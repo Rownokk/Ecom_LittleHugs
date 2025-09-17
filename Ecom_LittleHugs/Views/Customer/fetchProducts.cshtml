@@ -5,7 +5,8 @@
         <figure class="product-media">
             <span class="product-label label-top">Top</span>
             <a href="product.html">
-                <img src="@("~/product_images/" + pro.product_image)" alt="Product image" class="product-image">
+                <img src="@("~/product_images/" + pro.product_image)" alt="Product image" class="product-image"
+                asp-append-version="true" height="200px">
             </a>
 
             <div class="product-action-vertical">
