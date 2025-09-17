@@ -185,16 +185,23 @@ namespace Ecom_LittleHugs.Controllers
             // Pass products to the view
             return View();
         }
-        public IActionResult productDetails()
-            
+        public IActionResult ProductDetails(int id) // pass the product ID
         {
+            // Get the product by ID
+            var product = _context.tbl_product.FirstOrDefault(p => p.product_id == id);
+
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            // Optionally pass categories
             List<Category> category = _context.tbl_category.ToList();
             ViewData["category"] = category;
 
-
-
-            return View();
+            return View(product); // Pass the product to the view
         }
+
 
 
 
