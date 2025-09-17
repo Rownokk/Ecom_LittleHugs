@@ -12,9 +12,12 @@
             <div class="product-action-vertical">
                 <a href="#" class="btn-product-icon btn-wishlist" title="Add to Wishlist"><span>add to wishlist</span></a>
             </div><!-- End .product-action-vertical -->
-
             <div class="product-action">
-                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+            <form method="post" asp-action="AddToCart">
+                <input type="hidden" name="prod_id" value="@pro.product_id" >
+                <input type="submit" value="Add To Cart" class=" btn btn-block btn-product btn-cart">
+            </form>
+            
             </div><!-- End .product-action -->
         </figure><!-- End .product-media -->
 
